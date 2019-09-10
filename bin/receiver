@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+
+// read and validate configuration
+const config = require('../config/config');
+if(typeof config.controllerUUID === 'undefined' ||
+   typeof config.controllerNum === 'undefined'
+) {
+  console.error('ERROR: Please set the CONTROLLER_UUID and CONTROLLER_NUM environment variables');
+  process.exit(9);
+}

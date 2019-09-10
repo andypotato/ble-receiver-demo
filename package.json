@@ -1,0 +1,22 @@
+{
+  "name": "ble-receiver-demo",
+  "version": "0.0.1",
+  "description": "Bluetooth receiver for demo controller",
+  "scripts": {
+    "start": "node ./bin/receiver"
+  },
+  "author": "Andreas Schallwig",
+  "license": "MIT",
+  "dependencies": {
+    "bleno": "^0.5.0"
+  },
+  "os": [
+    "linux",
+    "win32"
+  ],
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andypotato/ble-receiver-demo"
+  }
+}
