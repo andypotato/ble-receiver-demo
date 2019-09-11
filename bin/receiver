@@ -1,10 +1,22 @@
 #!/usr/bin/env node
 
-// read and validate configuration
-const config = require('../config/config');
-if(typeof config.controllerUUID === 'undefined' ||
-   typeof config.controllerNum === 'undefined'
-) {
-  console.error('ERROR: Please set the CONTROLLER_UUID and CONTROLLER_NUM environment variables');
-  process.exit(9);
-}
+const program = require('commander');
+program
+  .option('-u, --uuid <uuid>', 'specifies the service UUID', 'F0BA')
+  .option('-p, --port <port>', 'set the controller port', 0)
+
+// get command line params
+const uuid = program.uuid;
+const port = program.port;
+
+console.log('Starting Controller Client');
+console.log('UUID:', uuid);
+console.log('Port:', port);
+
+// create client instance
+const ControllerClient = require('../lib/ControllerClient');
+const cc = new ControllerClient(uuid, port);
+
+// init & go
+cc.init();
+
