@@ -3,20 +3,21 @@
 const program = require('commander');
 program
   .option('-u, --uuid <uuid>', 'specifies the service UUID', 'F0BA')
-  .option('-p, --port <port>', 'set the controller port', 0)
+  .option('-c, --controller-port <controllerPort>', 'set the controller port', 0)
+  .option('-p, --websocket-port <websocketPort>', 'set the websocket server port', 1337)
 
 // get command line params
 const uuid = program.uuid;
-const port = program.port;
+const controllerPort = program.controllerPort;
+const websocketPort = program.websocketPort
 
-console.log('Starting Controller Client');
+console.log('Starting Controller Client ' + controllerPort);
 console.log('UUID:', uuid);
-console.log('Port:', port);
+console.log('Websocket Port:', websocketPort);
 
 // create client instance
 const ControllerClient = require('../lib/ControllerClient');
-const cc = new ControllerClient(uuid, port);
+const cc = new ControllerClient(uuid, controllerPort, websocketPort);
 
 // init & go
 cc.init();
-

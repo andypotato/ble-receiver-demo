@@ -1,6 +1,5 @@
-
 # BLE Receiver (Peripheral) Demo
-Demo implementation of a Bluetooth BLE peripheral in NodeJS using the [Bleno library](https://github.com/noble/bleno "Bleno library"). This is the counterpart to my [Bluetooth Controller Demo](https://github.com/andypotato/ble-controller-demo "Bluetooth Controller Demo") and will convert the incoming Bluetooth controller data to a Websocket for use with HTML5 / JavaScript Applications.
+Demo implementation of a Bluetooth BLE peripheral in NodeJS using the [Bleno library](https://github.com/noble/bleno "Bleno library"). This is the counterpart to my [Bluetooth Controller Demo](https://github.com/andypotato/ble-controller-demo "Bluetooth Controller Demo") and will output the incoming Bluetooth controller data to a websocket in JSON format for use with HTML5 / JavaScript Applications.
 
 This project is part of a [tutorial on using Bluetooth Controllers with HTML5 / JavaScript applications](https://medium.com/@andreas.schallwig "tutorial on using Bluetooth Controllers with HTML5 / JavaScript applications").
 
@@ -19,27 +18,28 @@ Once you have your Bluetooth adapter working continue with the following steps:
 
 Afterwards you can run the receiver using:
 ```
-node bin/receiver -u <uuid> -p <port>
+node bin/receiver -u <uuid> -c <controllerPort> -p <websocketPort>
 ```
 - `uuid` is the 16-bit service identifier your peripheral will be  advertising, for example `F0BA`
-- `port` is a number which identifies the ID of the connected controller (0, 1, 2, ...). In combination with the `uuid` this is helpful to create several non-conflicting receivers for multi-player environments
+- `controllerPort` is a number which identifies the ID of the connected controller (0, 1, 2, ...). In combination with the `uuid` this is helpful to create several non-conflicting receivers for multi-player environments
+- `websocketPort` specifies which port the websocket server will run on
 
 **Example:**
 ```
-node bin/receiver -u F0BA -p 0
+node bin/receiver -u F0BA -c 0 -p 1337
 ```
 The console will output detailed log information about the connected devices and controller input. Try connecting your controller App now and you should see the console updating according to your controller input:
 
 ```
-Starting Controller Client
+Starting Controller Client 0
 UUID: F0BA
-Port: 0
+Websocket Port: 1337
 
-+-----------+--------------+-------------------+
-+ Bluetooth | Connected    | F0:BA:13:37:42:23 +
-+-----------+--------------+-------------------+
-+ Websocket | Disconnected |                   +
-+-----------+--------------+-------------------+
++-----------+--------------+---------------------+
++ Bluetooth | Connected    | F0:BA:13:37:42:23   +
++-----------+--------------+---------------------+
++ Websocket | Disconnected |                     +
++-----------+--------------+---------------------+
 
 +---------+--------------------------+
 + D-Pad   | UP LEFT                  |
@@ -59,4 +59,28 @@ Controller is advertising
 ```
 ### Websocket
 
-tbw.
+The receiver process will start a local websocket server on the port you specified with the `-p` commandline parameter. Once you connect a websocket client the bluetooth input will be output via the websocket using the following JSOn format:
+
+```
+{
+    "dpad": {
+        "up": true,
+        "down": false,
+        "left": false,
+        "right": false
+    },
+    "buttons": {
+        "start": false,
+        "select": false,
+        "btn_a": true,
+        "btn_b": false
+    },
+    "axis": {
+        "x": -2,
+        "y": 1,
+        "z": 337
+    },
+    "port": 0
+}
+```
+
