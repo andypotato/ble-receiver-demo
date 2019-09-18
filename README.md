@@ -1,7 +1,7 @@
 # BLE Receiver (Peripheral) Demo
 Demo implementation of a Bluetooth BLE peripheral in NodeJS using the [Bleno library](https://github.com/noble/bleno "Bleno library"). This is the counterpart to my [Bluetooth Controller Demo](https://github.com/andypotato/ble-controller-demo "Bluetooth Controller Demo") and will output the incoming Bluetooth controller data to a websocket in JSON format for use with HTML5 / JavaScript Applications.
 
-This project is part of a [tutorial on using Bluetooth Controllers with HTML5 / JavaScript applications](https://medium.com/@andreas.schallwig "tutorial on using Bluetooth Controllers with HTML5 / JavaScript applications").
+This project is part of a [tutorial on using Bluetooth Controllers with HTML5 / JavaScript applications](https://medium.com/@andreas.schallwig/your-phone-as-bluetooth-controller-for-web-applications-81acfe53dd64 "tutorial on using Bluetooth Controllers with HTML5 / JavaScript applications").
 
 ## Usage
 
